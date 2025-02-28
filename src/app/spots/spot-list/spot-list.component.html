@@ -1,0 +1,7 @@
+<h2>Spots</h2>
+<ul>
+  <li *ngFor="let spot of spots">
+    <a [routerLink]="['/spots', spot.id]">{{ spot.name }}</a>
+  </li>
+</ul>
+<a routerLink="/spots/create">Create New Spot</a>

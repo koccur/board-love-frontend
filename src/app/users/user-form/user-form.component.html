@@ -1,0 +1,7 @@
+<h2>Create User</h2>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label>Username: <input formControlName="username"></label><br>
+  <label>Email: <input formControlName="email" type="email"></label><br>
+  <button type="button" (click)="goBack()">Back</button>
+  <button type="submit">Save</button>
+</form>

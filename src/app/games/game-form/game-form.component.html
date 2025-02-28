@@ -1,0 +1,40 @@
+<h2>{{ isEdit ? 'Edit Game' : 'Create Game' }}</h2>
+
+<form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+  <label for="title">Title:</label>
+  <input id="title" formControlName="title" required />
+  <div *ngIf="gameForm.get('title')?.invalid && gameForm.get('title')?.touched">
+    Title is required (min 3 characters).
+  </div>
+
+  <label for="genre">Genre:</label>
+  <input id="genre" formControlName="genre" required />
+  <div *ngIf="gameForm.get('genre')?.invalid && gameForm.get('genre')?.touched">
+    Genre is required.
+  </div>
+
+  <label for="numberOfPlayers">Number of Players:</label>
+  <input id="numberOfPlayers" type="number" formControlName="numberOfPlayers" required />
+  <div *ngIf="gameForm.get('numberOfPlayers')?.invalid && gameForm.get('numberOfPlayers')?.touched">
+    Must be at least 1 player.
+  </div>
+
+  <label for="releaseDate">Release Date:</label>
+  <input id="releaseDate" type="date" formControlName="releaseDate" required />
+  <div *ngIf="gameForm.get('releaseDate')?.invalid && gameForm.get('releaseDate')?.touched">
+    Release Date is required.
+  </div>
+
+  <label for="description">Description:</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="time">Time (minutes):</label>
+  <input id="time" type="number" formControlName="time" />
+
+  <label for="ageRestriction">Age Restriction:</label>
+  <input id="ageRestriction" type="number" formControlName="ageRestriction" />
+  <button type="button" (click)="goBack()">Back</button>
+  <button type="submit" [disabled]="gameForm.invalid">{{ isEdit ? 'Update' : 'Create' }}</button>
+</form>
+
+<a routerLink="/games">Cancel</a>

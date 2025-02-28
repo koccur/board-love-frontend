@@ -1,0 +1,8 @@
+<h2>Create Spot</h2>
+<form [formGroup]="spotForm" (ngSubmit)="onSubmit()">
+  <label>Name: <input formControlName="name"></label><br>
+  <label>Location: <input formControlName="location"></label><br>
+  <label>Description: <textarea formControlName="description"></textarea></label><br>
+  <button type="button" (click)="goBack()">Back</button>
+  <button type="submit">Save</button>
+</form>

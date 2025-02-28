@@ -1,0 +1,14 @@
+<h2>Create Event</h2>
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <label>Title: <input formControlName="title"></label><br>
+  <label>Date: <input formControlName="date" type="date"></label><br>
+  <label>Location: <input formControlName="location"></label><br>
+  <label>Description: <textarea formControlName="description"></textarea></label><br>
+  <label>Max pariticipans: <textarea formControlName="maxParticipants"></textarea></label><br>
+  <label>Organizer: <textarea formControlName="organizerId"></textarea></label><br>
+  <!-- todo ? nod needed,get from loggedUserData -->
+  <label>Game: <textarea formControlName="gameId"></textarea></label><br>
+  <label>Participans: <textarea formControlName="participantsIds"></textarea></label><br>
+  <button type="button" (click)="goBack()">Back</button>
+  <button type="submit">Save</button>
+</form>

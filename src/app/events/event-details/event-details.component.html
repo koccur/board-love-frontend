@@ -1,0 +1,8 @@
+<h2>{{ event?.title }}</h2>
+<p>Date: {{ event?.date }}</p>
+<p>Organizer: {{ event?.organizer.name }}</p> 
+<p>Game: {{ event?.game?.title }}</p> 
+<p>Location: {{ event?.location }}</p>
+<p>Description: {{ event?.description }}</p>
+<p>Max participans: {{ event?.maxParticipants }}</p>
+<a routerLink="/events">Back to Events</a>

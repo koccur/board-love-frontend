@@ -6,7 +6,7 @@ import { Spot } from '../spots.model';
   selector: 'app-spot-list',
   templateUrl: './spot-list.component.html',
   standalone:false,
-  styleUrls: ['./spot-list.component.css']
+  styleUrls: ['./spot-list.component.scss']
 })
 export class SpotListComponent implements OnInit {
   spots: Spot[] = [];

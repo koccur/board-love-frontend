@@ -1,14 +1,38 @@
 <h2>Create Event</h2>
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-  <label>Title: <input formControlName="title"></label><br>
-  <label>Date: <input formControlName="date" type="date"></label><br>
-  <label>Location: <input formControlName="location"></label><br>
-  <label>Description: <textarea formControlName="description"></textarea></label><br>
-  <label>Max pariticipans: <textarea formControlName="maxParticipants"></textarea></label><br>
-  <label>Organizer: <textarea formControlName="organizerId"></textarea></label><br>
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="Column">
+  <mat-form-field class="example-full-width">
+    <mat-label>Title:</mat-label>
+    <input matInput value="Title">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Date:</mat-label>
+    <input matInput type="date" value="date">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Location:</mat-label>
+    <input matInput value="location">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Description:</mat-label>
+    <textarea matInput value="description">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Max pariticipans:</mat-label>
+    <textarea matInput value="maxParticipants">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Organizer:</mat-label>
+    <textarea matInput value="organizerId"></textarea>
+  </mat-form-field>
   <!-- todo ? nod needed,get from loggedUserData -->
-  <label>Game: <textarea formControlName="gameId"></textarea></label><br>
-  <label>Participans: <textarea formControlName="participantsIds"></textarea></label><br>
+  <mat-form-field class="example-full-width">
+    <mat-label>Game:</mat-label>
+    <textarea matInput value="gameId"></textarea>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Participans:</mat-label>
+    <textarea matInput value="participantsIds"></textarea>
+  </mat-form-field>
   <button type="button" (click)="goBack()">Back</button>
   <button type="submit">Save</button>
 </form>

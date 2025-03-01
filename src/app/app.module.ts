@@ -10,21 +10,19 @@ import { UsersModule } from './users/users.module';
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent],bootstrap: [AppComponent],
+  declarations: [AppComponent],
   imports: [
-    // BrowserAnimationsModule,
-    BrowserModule,
-    // CommonModule,,
-    HeaderModule,
+    // HeaderModule,
     // DashboardModule,
     // GamesModule,
     // MatButtonModule,
     // MatTableModule,
-    RouterModule.forRoot([]),
     // SpotsModule,
     // UsersModule,
   ],
 })
 export class AppModule { }
+

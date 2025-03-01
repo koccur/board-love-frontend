@@ -10,5 +10,4 @@ export const routes: Routes = [
     { path: 'spots', loadChildren: () => import('./spots/spots.module').then(m => m.SpotsModule) },
     { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
     { path: '**', component: PageNotFoundComponent } // Handle 404 Not Found
-
 ];

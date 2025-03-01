@@ -7,7 +7,7 @@ import { EventGame } from '../events.model';
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
   standalone:false,
-  styleUrls: ['./event-details.component.css']
+  styleUrls: ['./event-details.component.scss']
 })
 export class EventDetailsComponent implements OnInit {
   event?: EventGame;

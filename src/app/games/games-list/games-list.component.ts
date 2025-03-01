@@ -30,4 +30,7 @@ export class GamesListComponent {
       });
     }
   }
+  editGame(id:number):void{
+    // todo:
+  }
 }

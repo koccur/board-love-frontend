@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { API_URL } from '../app.config';
 import { CreateEventDto, EventGame, UpdateEventDto } from './events.model';
 
-
-
 @Injectable({
   providedIn: 'root'
 })

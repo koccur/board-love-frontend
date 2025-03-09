@@ -2,37 +2,68 @@
 <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="Column">
   <mat-form-field class="example-full-width">
     <mat-label>Title:</mat-label>
-    <input matInput value="Title">
+    <input matInput>
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Date:</mat-label>
-    <input matInput type="date" value="date">
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Location:</mat-label>
-    <input matInput value="location">
+    <mat-select>
+      <mat-option *ngFor="let spot of spotList$|async" value="spot.id">{{spot.name}} - {{spot.location}}</mat-option>
+      
+    </mat-select>
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Description:</mat-label>
-    <textarea matInput value="description">
+    <textarea matInput></textarea>
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Max pariticipans:</mat-label>
-    <textarea matInput value="maxParticipants">
+    <input matInput type="number">
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <mat-label>Organizer:</mat-label>
-    <textarea matInput value="organizerId"></textarea>
-  </mat-form-field>
+
   <!-- todo ? nod needed,get from loggedUserData -->
   <mat-form-field class="example-full-width">
     <mat-label>Game:</mat-label>
-    <textarea matInput value="gameId"></textarea>
+    <mat-select [multiple]="true">
+      <mat-optgroup [label]="'Favourite'" *ngIf="(userFavGameList$|async)?.length">
+        <mat-option *ngFor="let game of userFavGameList$|async" value="game.id">{{game.title}}</mat-option>
+      </mat-optgroup>
+      <mat-optgroup [label]="'All games'" *ngIf="(userFavGameList$|async)?.length;else full">
+        <mat-option *ngFor="let game of gameList$|async" value="game.id">{{game.title}} </mat-option>
+      </mat-optgroup>
+      <ng-template #full>
+        <mat-option *ngFor="let game of gameList$|async" value="game.id">{{game.title}} </mat-option>
+      </ng-template>
+    </mat-select>
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <mat-label>Participans:</mat-label>
-    <textarea matInput value="participantsIds"></textarea>
-  </mat-form-field>
-  <button type="button" (click)="goBack()">Back</button>
-  <button type="submit">Save</button>
+
+  <ng-container *ngIf="userFriendList$ | async as userFriendList">
+    <mat-form-field class="example-full-width" *ngIf="userFriendList.length">
+      <mat-label>Participans:</mat-label>
+      <mat-select [multiple]="true">
+        <mat-option *ngFor="let friend of userFriendList" value="friend.id">{{friend.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+
+  <!-- todo Add element to Backend -->
+  <mat-radio-group aria-label="Invitation option">
+    <mat-radio-button value="true">Open game</mat-radio-button>
+    <mat-radio-button value="false">Invited only</mat-radio-button>
+  </mat-radio-group>
+
+  <div class="flex">
+    <button mat-flat-button type="button" (click)="goBack()">Back</button>
+    <button mat-flat-button type="submit">Save</button>
+  </div>
+
 </form>

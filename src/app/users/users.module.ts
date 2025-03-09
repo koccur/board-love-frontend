@@ -15,9 +15,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [UsersComponent, UserListComponent, UserDetailsComponent, UserFormComponent],
-  imports: [FormsModule,
+  imports: [
+    CommonModule,
+    FormsModule,
     ReactiveFormsModule,
-    CommonModule, RouterModule.forChild(routes)
+    RouterModule.forChild(routes)
   ]
 })
 export class UsersModule { }

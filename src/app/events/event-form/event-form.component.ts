@@ -34,12 +34,13 @@ export class EventFormComponent implements OnInit {
     this.eventForm = this.fb.group({
       title: ['', Validators.required],
       date: ['', Validators.required],
-      location: ['', Validators.required],
+      spotId: [''],
       description: [''],
-      maxParticipants: [''],
+      maxParticipants: [6],
       organizerId: [''],
       gameId: [''],
-      participantsIds: [''],
+      isPrivate:[false],
+      participantsIds: [],
     });
     this.userService.getMyData().subscribe((myData: User) => {
       this.eventForm.get('organizerId').setValue(myData.id, { onlyself: true })
@@ -54,6 +55,7 @@ export class EventFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    debugger;
     if (this.eventForm.valid) {
       this.eventService.createEvent(this.eventForm.value).subscribe(() => {
         this.router.navigate(['/events']);

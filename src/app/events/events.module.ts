@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventsComponent } from './events.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventFormComponent } from './event-form/event-form.component';
@@ -13,13 +12,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 const routes: Routes = [
-  { path: '', component: EventListComponent },  // List of events
-  { path: 'create', component: EventFormComponent },  // Create a new event
-  { path: ':id', component: EventDetailsComponent },  // Event details
+  { path: '', component: EventListComponent },
+  { path: 'create', component: EventFormComponent },  
+  { path: 'edit/:id', component: EventFormComponent }, 
+  { path: ':id', component: EventDetailsComponent },
 ];
 
 @NgModule({
-  declarations: [EventsComponent, EventListComponent, EventDetailsComponent, EventFormComponent],
+  declarations: [ EventListComponent, EventDetailsComponent, EventFormComponent],
   imports: [
     CommonModule,
     FormsModule,

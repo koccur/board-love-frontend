@@ -1,35 +1,39 @@
 import { Game } from "../games/game.model";
+import { Spot } from "../spots/spots.model";
 import { User } from "../users/users.model";
 
 export interface EventGame {
-    id: number;
-    description: string;
     date: string;
-    title: string;
+    description: string;
+    games?: Game[];
+    id: number;
+    isPrivate:boolean;
     maxParticipants: number;
     organizer: User;
-    game?: Game;
     participants?: User[];
-    location: string;
+    spot: Spot;
+    title: string;
 }
 
 export interface CreateEventDto {
-    description: string;
     date: string;
-    title: string;
+    description: string;
+    gameIds?: number;
+    isPrivate:boolean;
     maxParticipants: number;
     organizerId: number;
-    gameId?: number;
     participantsIds?: number[];
-    location: string;
+    spotId?: number;
+    title: string;
 }
 
 export interface UpdateEventDto {
-    title: string;
-    description: string;
     date: string;
+    description: string;
+    gameIds?: number;
+    isPrivate:boolean;
     maxParticipants: number;
-    gameId?: number;
     participantsIds?: number[];
-    location: string;
+    spotId?: number;
+    title: string;
 }

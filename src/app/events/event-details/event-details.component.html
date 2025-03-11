@@ -1,8 +1,13 @@
+
 <h2>{{ event?.title }}</h2>
+
 <p>Date: {{ event?.date }}</p>
 <p>Organizer: {{ event?.organizer.username }}</p> 
-<p>Game: {{ event?.game?.title }}</p> 
-<p>Location: {{ event?.location }}</p>
+<p>Games: {{ gamesName }}</p> <!-- todo show as a link -->
+<p>Location: {{ event?.spot?.name }}</p>
 <p>Description: {{ event?.description }}</p>
 <p>Max participans: {{ event?.maxParticipants }}</p>
+<p>Participans: {{ participantsNames }}</p> <!-- todo show as a link -->
+<p>Is private: {{ event?.isPrivate }}</p>
+<a [routerLink]="['/events/edit', event.id]">{{ event.title }}</a>
 <a routerLink="/events">Back to Events</a>

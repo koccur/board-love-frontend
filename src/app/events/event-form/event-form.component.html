@@ -1,4 +1,4 @@
-<h2>Create Event</h2>
+<h2>{{ isEdit ? 'Edit event' : 'Create event' }}</h2>
 <form [formGroup]="eventForm" class="Column">
   <mat-form-field class="example-full-width">
     <mat-label>Title:</mat-label>

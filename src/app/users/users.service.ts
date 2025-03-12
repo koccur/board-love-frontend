@@ -58,7 +58,7 @@ export class UsersService {
       "numberOfPlayers": 4,
       "time": 90,
       "ageRestriction": 10,
-      "genre": "STRATEGY"
+      "genre": {id:1,name:"STRATEGY"}
     }]);
   }
 

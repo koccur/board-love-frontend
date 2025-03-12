@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../events.service';
 import { EventGame } from '../events.model';
 import { User } from '../../users/users.model';
+import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-event-details',
@@ -11,19 +13,23 @@ import { User } from '../../users/users.model';
   styleUrls: ['./event-details.component.scss']
 })
 export class EventDetailsComponent implements OnInit {
-
-  event?: EventGame;
-  participantsNames: string[];
-  gamesName:string[];
-  constructor(private eventService: EventService, private route: ActivatedRoute) {}
+  event$: Observable<EventGame>;
+  constructor(private eventService: EventService, private route: ActivatedRoute,
+    private router:Router,
+    private location:Location
+  ) {}
 
   ngOnInit(): void {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    this.eventService.getEventById(eventId).subscribe((data) => {
-      this.event = data;
-      this.participantsNames = data.participants.map(user=>user.username);
-      this.gamesName = data.games.map(game=>game.title);
-    });
+    this.event$ = this.eventService.getEventById(eventId);
+  }
+
+  goToEvent(id:number) {
+    this.router.navigateByUrl(`/events/edit/${id}`);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   edit(id:number) {

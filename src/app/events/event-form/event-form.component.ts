@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { EventService } from '../events.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, map, mergeMap, Observable } from 'rxjs';
 import { FriendUser, User } from '../../users/users.model';
 import { UsersService } from '../../users/users.service';
 import { Game } from '../../games/game.model';
@@ -18,11 +18,10 @@ import { SpotService } from '../../spots/spots.service';
   standalone: false,
 })
 export class EventFormComponent implements OnInit {
-  // check based on id if element exist and then change form
   eventForm: FormGroup;
   userFriendList$: Observable<FriendUser[]>;
   userFavGameList$: Observable<Game[]>
-  gameList$: Observable<Game[]>
+  gameList$: Observable<[Game[],Game[]]>
   spotList$: Observable<Spot[]>
   isEdit = false;
   eventId!: number;
@@ -38,9 +37,12 @@ export class EventFormComponent implements OnInit {
     this.userService.getMyData().subscribe((myData: User) => {
       this.eventForm.get('organizerId').setValue(myData.id, { onlyself: true })
     });
-    this.userFavGameList$ = this.userService.getUserFavGames();
-    this.gameList$ = this.gameService.getGames();
+    this.gameList$ = combineLatest(this.userService.getUserFavGames(),this.gameService.getGames()).pipe(map((data:[Game[],Game[]])=>{
+      data[1]= data[1].filter(game=>data[0].some(gameFav=>gameFav.id !== game.id));
+      return data;
+    }));;
     this.spotList$ = this.spotService.getSpots();
+    this.userFriendList$ = this.userService.getFriendList();
   }
 
   ngOnInit(): void {
@@ -51,14 +53,11 @@ export class EventFormComponent implements OnInit {
       this.eventId = id;
       this.eventService.getEventById(id).subscribe((event) => {
         this.eventForm.patchValue(event);
-        debugger;
-        // todo multiselect gameIds doesnt work
         this.eventForm.get('gameIds').patchValue(event.games.map(game=>game.id));
         this.eventForm.get('participantsIds').patchValue(event.participants.map(user=>user.id));
         this.eventForm.get('spotId').patchValue(event.spot.id);
       });
     }
-    this.userFriendList$ = this.userService.getFriendList();
   }
 
   onSubmit(): void {

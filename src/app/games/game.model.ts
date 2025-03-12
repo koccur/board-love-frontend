@@ -2,7 +2,7 @@ export interface Game {
     id?: number;
     title: string;
     description?: string;
-    genre: string;
+    genre: {name:string};
     releaseDate: string;
     numberOfPlayers: number;
     time?: number;

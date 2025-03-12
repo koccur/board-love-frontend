@@ -31,17 +31,11 @@
 
   <!-- todo ? nod needed,get from loggedUserData -->
   <mat-form-field class="example-full-width">
-    <mat-label>Game:</mat-label>
-    <mat-select [multiple]="true" [formControlName]="'gameId'">
-      <mat-optgroup [label]="'Favourite'" *ngIf="(userFavGameList$|async)?.length">
-        <mat-option *ngFor="let game of userFavGameList$|async" [value]="game.id">{{game.title}}</mat-option>
+    <mat-label>Games:</mat-label>
+    <mat-select [multiple]="true" [formControlName]="'gameIds'" *ngIf="gameList$|async as gameList">
+      <mat-optgroup [label]="i==0?'Favourite':'All games'" *ngFor="let gl of gameList;let i=index;">
+        <mat-option *ngFor="let game of gameList[i]" [value]="game.id">{{game.title}}</mat-option>
       </mat-optgroup>
-      <mat-optgroup [label]="'All games'" *ngIf="(userFavGameList$|async)?.length;else full">
-        <mat-option *ngFor="let game of gameList$|async" [value]="game.id">{{game.title}} </mat-option>
-      </mat-optgroup>
-      <ng-template #full>
-        <mat-option *ngFor="let game of gameList$|async" [value]="game.id">{{game.title}} </mat-option>
-      </ng-template>
     </mat-select>
   </mat-form-field>
 

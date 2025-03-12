@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from '../game.model';
 import { GamesService } from '../games.service';
+import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-detail',
@@ -10,14 +12,23 @@ import { GamesService } from '../games.service';
   styleUrl: './game-detail.component.scss'
 })
 export class GameDetailComponent {
-  game: Game | undefined;
+  game$: Observable<Game>;
 
-  constructor(private route: ActivatedRoute, private gameService: GamesService) {}
+  constructor(private route: ActivatedRoute,
+    private router:Router,
+    private location:Location,
+    private gameService: GamesService) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.gameService.getGameById(id).subscribe((data) => (this.game = data));
-    }
+    this.game$ = this.gameService.getGameById(id);
+  }
+
+  goToGame(id:number) {
+    this.router.navigateByUrl(`/games/edit/${id}`);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

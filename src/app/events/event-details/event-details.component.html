@@ -1,13 +1,22 @@
+<ng-container *ngIf="event$|async as event";else empty>
+    <h2>{{ event?.title }}</h2>
+    <p>Date: {{ event?.date }}</p>
+    <p>Organizer: {{ event?.organizer.username }}</p>
+    <p>Games: <ng-container *ngFor="let game of event.games;let i=index"><a [routerLink]="['/games/',game.id]">
+                {{game.title}}</a><span *ngIf="event.games.length<i">,</span></ng-container></p>
+    <p>Location: {{ event?.spot?.name }}</p>
+    <p>Description: {{ event?.description }}</p>
+    <p>Max participans: {{ event?.maxParticipants }}</p>
+    <p>Participans: <ng-container *ngFor="let user of event.participants;let i=index;"><a
+                [routerLink]="['/users/',user.id]">
+                {{user.username}}</a><span *ngIf="event.participants.length<i">,</span></ng-container></p>
+    <p>Is private: {{ event?.isPrivate }}</p>
 
-<h2>{{ event?.title }}</h2>
-
-<p>Date: {{ event?.date }}</p>
-<p>Organizer: {{ event?.organizer.username }}</p> 
-<p>Games: {{ gamesName }}</p> <!-- todo show as a link -->
-<p>Location: {{ event?.spot?.name }}</p>
-<p>Description: {{ event?.description }}</p>
-<p>Max participans: {{ event?.maxParticipants }}</p>
-<p>Participans: {{ participantsNames }}</p> <!-- todo show as a link -->
-<p>Is private: {{ event?.isPrivate }}</p>
-<a [routerLink]="['/events/edit', event.id]">{{ event.title }}</a>
-<a routerLink="/events">Back to Events</a>
+    <div class="flex">
+        <button mat-flat-button type="button" (click)="goBack()">Back</button>
+        <button mat-flat-button type="button" (click)="goToEvent(event.id)">Edit</button>
+    </div>
+</ng-container>
+<ng-template #empty>
+<p>Cannot find event</p>
+</ng-template>

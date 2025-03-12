@@ -1,7 +1,17 @@
-<h2>{{ game?.title }}</h2>
-<p>{{ game?.description }}</p>
-<p>Genre: {{ game?.genre  }}</p>
-<p>Players: {{ game?.numberOfPlayers }}</p>
-<p>Time: {{ game?.time }} minutes</p>
-<p>Age Restriction: >{{ game?.ageRestriction }}</p>
-<a routerLink="/games">Back to List</a>
+<ng-container *ngIf="game$|async as game" ;else empty>
+    <h2>{{ game?.title }}</h2>
+    <p>{{ game?.description }}</p>
+    <p>Genre: {{ game?.genre?.name }}</p>
+    <p>Description: {{ game?.description }}</p>
+    <p>Release date: {{ game?.releaseDate  | date }}</p>
+    <p>Players: {{ game?.numberOfPlayers }}</p>
+    <p>Time: {{ game?.time }} minutes</p>
+    <p>Age Restriction: >{{ game?.ageRestriction }}</p>
+    <div class="flex">
+        <button mat-flat-button type="button" (click)="goBack()">Back</button>
+        <button mat-flat-button type="button" (click)="goToGame(game.id)">Edit</button>
+    </div>
+</ng-container>
+<ng-template #empty>
+    <p>Cannot find game</p>
+</ng-template>

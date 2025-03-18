@@ -2,7 +2,12 @@
   <nav>
     <ul>
       <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/games">Games</a></li>
+      <ng-container *ngIf="loggedUser$|async as loggedUser; else demoVersion">
+        <li><a [routerLink]="'/games/user/'+loggedUser.id">My games</a></li>
+      </ng-container>
+      <ng-template #demoVersion> <!-- work in progress-->
+        <li><a routerLink="/games">All games</a></li>
+      </ng-template>
       <li><a routerLink="/events">Events</a></li>
       <li><a routerLink="/spots">Spots</a></li>
       <li><a routerLink="/users">Users</a></li>

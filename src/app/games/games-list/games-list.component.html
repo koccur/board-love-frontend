@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="games" class="mat-elevation-z8">
+<table mat-table [dataSource]="games$|async" class="mat-elevation-z8">
   <!-- ID Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -33,11 +33,16 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let game">
-      <button mat-button color="primary" (click)="editGame(game.id)">Edit</button>
-      <button mat-button color="warn" (click)="deleteGame(game.id)">Delete</button>
+      <button mat-button color="primary" *ngIf="isAllGamesPage && !userGotIt(game.id)" (click)="assignGame(game.id)">Assign</button>
+      <button mat-button color="primary" *ngIf="!isAllGamesPage" (click)="unassignGame(game.id)">Unassign</button>
+      <button mat-button color="primary" *ngIf="isUserAdmin" (click)="editGame(game.id)">Edit</button>
+      <button mat-button color="warn" *ngIf="isUserAdmin" (click)="deleteGame(game.id)">Delete</button>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<button *ngIf="!isAllGamesPage" mat-button color="primary" (click)="redirectToAllGames()">Show all games</button>
+<button *ngIf="isAllGamesPage" mat-button color="primary" (click)="redirectToMyGames()">Show my games</button>

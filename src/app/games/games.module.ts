@@ -15,13 +15,15 @@ import { MatTableModule } from '@angular/material/table';
 
 const routes: Routes = [
   { path: '', component: GamesListComponent }, // List games
-  { path: 'add', component: GameFormComponent }, // Create new game
+  { path: 'add', component: GameFormComponent }, // Create new game 
+  // todo process of adding game
   { path: 'edit/:id', component: GameFormComponent }, // Edit existing game
-  { path: ':id', component: GameDetailComponent }, // View game details
+  { path: 'single/:id', component: GameDetailComponent }, // View game details
+  { path: 'user/:id', component: GamesListComponent } // users games
 ];
 
 @NgModule({
-  declarations: [GamesListComponent,GameDetailComponent,GameFormComponent],
+  declarations: [GamesListComponent, GameDetailComponent, GameFormComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -32,6 +34,6 @@ const routes: Routes = [
     MatButtonModule,
     RouterModule.forChild(routes)
   ],
-  providers:[GamesService,provideHttpClient()]
+  providers: [GamesService, provideHttpClient()]
 })
 export class GamesModule { }

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Game } from './game.model';
+import { AssignGameDto, Game } from './game.model';
 import { API_URL } from './../app.config';
+import { User } from '../users/users.model';
 
 @Injectable({
   providedIn:'root'
@@ -12,6 +13,12 @@ export class GamesService {
 
   getGames(): Observable<Game[]> {
     return this.http.get<Game[]>(API_URL.GAMES);
+  }
+
+  getUserGames(userId:number):Observable<Game[]>{
+    // // todo add to header auth token to get my games
+    // should game list be private?
+    return this.http.get<Game[]>(`${API_URL.USERS}/${userId}/owned-games`)
   }
 
   getGameById(id: number): Observable<Game> {
@@ -28,5 +35,13 @@ export class GamesService {
 
   deleteGame(id: number): Observable<void> {
     return this.http.delete<void>(`${API_URL.GAMES}/${id}`);
+  }
+
+  assignGameToUser(assignGameDto: AssignGameDto):Observable<User>{
+    return this.http.post<User>(`${API_URL.GAMES}/assign`,assignGameDto);
+  }
+
+  unassignGameToUser(dto: AssignGameDto):Observable<User>{
+    return this.http.post<User>(`${API_URL.GAMES}/unassign`,dto);
   }
 }

@@ -4,15 +4,13 @@ friend list
 0auth
 
 styles
-My games -> User
-All games -> Admin
+My games -> User <--- almost done>
 Add favourites -> user
-alert create event max participans< participans
-change pariticipans for players in DB\
-Spots raiting
+Add notifications for every request
+alert create event max participans< participans 
+change pariticipans for players in DB\ +++++
+Spots raiting 
 Spots <- avaialability vol 2>
-spots edition -> Admin
-spots remove ->Admin
 favourite spots -> User
 USers-> my friends for user
 users -> find player?
@@ -24,3 +22,7 @@ dashboard grid -> find game for me
 dashboard-> find filters
 dashboard-> events in my favourite places
 
+
+All games -> Admin
+spots edition -> Admin
+spots remove ->Admin

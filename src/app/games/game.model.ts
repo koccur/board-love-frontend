@@ -8,3 +8,8 @@ export interface Game {
     time?: number;
     ageRestriction?: number;
   }
+
+export interface AssignGameDto{
+  gameId:number;
+  userId:number;
+}

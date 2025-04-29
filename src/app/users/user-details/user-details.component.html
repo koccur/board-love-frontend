@@ -1,10 +1,24 @@
 <ng-container *ngIf="user$|async as user" ;else empty>
     <h2>{{ user?.username }}</h2>
-    <p>Email: {{ user?.email }}</p>
     <div class="flex">
         <button mat-flat-button type="button" (click)="goBack()">Back</button>
+        <button mat-flat-button type="button" (click)="addFriend(user.id)">Add friend</button>
         <!-- <button mat-flat-button type="button" (click)="goToUser(user.id)">Edit</button> -->
     </div>
+
+    <p>Owned games</p>
+
+    <ng-container *ngIf="ownedGames$|async as ownedGames">
+        <div *ngIf="!ownedGames.length">User game list is empty</div>
+        <ul *ngIf="ownedGames.length">
+            <li *ngFor="let game of ownedGames">{{game.title}}</li>
+        </ul>
+    </ng-container>
+    <ng-template #empty>
+
+    </ng-template>
+
+    
 </ng-container>
 <ng-template #empty>
     <p>Cannot find user</p>

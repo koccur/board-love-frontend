@@ -9,6 +9,7 @@ import { Game } from '../games/game.model';
   providedIn: 'root'
 })
 export class UsersService {
+
   private tempLocalData = { id: 1, username: 'John Connor', email: 'john@connor.doe.com' };
   // fix to user userLoggedData instead of temp;
   private userLoggedData: ReplaySubject<Partial<User>> = new ReplaySubject(1);
@@ -18,12 +19,12 @@ export class UsersService {
     )
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(API_URL.USERS);
+  getUsers(usersName:string): Observable<User[]> {
+    return this.http.get<User[]>(`${API_URL.USERS}?name=${usersName}`);
   }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${API_URL.USERS}/${id}`);
+  getUserById(id: number): Observable<FriendUser> {
+    return this.http.get<FriendUser>(`${API_URL.USERS}/${id}`);
   }
 
   createUser(user: User): Observable<User> {
@@ -38,11 +39,16 @@ export class UsersService {
     return this.http.delete<void>(`${API_URL.USERS}/${id}`);
   }
 
-  getFriendList(): Observable<FriendUser[]> {
-    // todo add on backend
-    return this.getUsers().pipe(map((users: User[]) =>
-      users.map(user => ({ id: user.id, name: user.username }))))
+  getFriendList(usersName:string): Observable<FriendUser[]> {
+    // getViaLoggedTokenId instead of plain id
+    return this.http.get<User[]>(`${API_URL.USERS}/find-friends?friendName=${usersName}&id=${this.tempLocalData.id}`)
+    .pipe(map((users: User[]) =>
+      users.map(user => ({ id: user.id, username: user.username }))))
   };
+
+  addFriend(friendId: number):Observable<User> {
+    return this.http.post<User>(`${API_URL.USERS}/${this.tempLocalData.id}/add-friend`,{friendId});
+  }
 
   // todo new type? Loggin Data?
   getMyData(): Observable<User> {
@@ -50,20 +56,10 @@ export class UsersService {
   }
 
   getUserFavGames(): Observable<Game[]> {
-    return of([{
-      "id": 1,
-      "title": "Catan",
-      "description": "A strategy board game",
-      "releaseDate": "1994-12-31T23:00:00.000Z",
-      "numberOfPlayers": 4,
-      "time": 90,
-      "ageRestriction": 10,
-      "genre": {id:1,name:"STRATEGY"}
-    }]);
+    return this.http.get<Game[]>(`${API_URL.USERS}/${this.tempLocalData.id}/fav-games`);
   }
 
-
-  getUserOwnedGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(`${API_URL.USERS}/${this.tempLocalData.id}/owned-games`);
+  getUserOwnedGames(userId:number = this.tempLocalData.id): Observable<Game[]> {
+    return this.http.get<Game[]>(`${API_URL.USERS}/${userId}/owned-games`);
   }
 }

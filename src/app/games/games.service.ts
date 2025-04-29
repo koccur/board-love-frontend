@@ -21,6 +21,12 @@ export class GamesService {
     return this.http.get<Game[]>(`${API_URL.USERS}/${userId}/owned-games`)
   }
 
+  getUserFavGames(userId:number):Observable<Game[]>{
+    // // todo add to header auth token to get my games
+    // should game list be private?
+    return this.http.get<Game[]>(`${API_URL.USERS}/${userId}/fav-games`);
+  }
+
   getGameById(id: number): Observable<Game> {
     return this.http.get<Game>(`${API_URL.GAMES}/${id}`);
   }
@@ -44,4 +50,13 @@ export class GamesService {
   unassignGameToUser(dto: AssignGameDto):Observable<User>{
     return this.http.post<User>(`${API_URL.GAMES}/unassign`,dto);
   }
+
+  removeGameFromFav(dto:AssignGameDto):Observable<User>{
+    return this.http.post<User>(`${API_URL.GAMES}/unassignFav`,dto);
+  }
+
+  addGameToFav(dto:AssignGameDto):Observable<User>{
+    return this.http.post<User>(`${API_URL.GAMES}/assignFav`,dto);
+  }
+
 }

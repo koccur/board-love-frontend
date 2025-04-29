@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../users.service';
-import { User } from '../users.model';
+import { FriendUser, User } from '../users.model';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
+import { Game } from '../../games/game.model';
 @Component({
   selector: 'app-user-details',
   standalone: false,
@@ -11,7 +12,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  user$: Observable<User>
+  user$: Observable<FriendUser>
+  ownedGames$: Observable<Game[]>
 
   constructor(private userService: UsersService,
     private location: Location,
@@ -20,8 +22,14 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     this.user$ = this.userService.getUserById(userId);
+    this.ownedGames$ = this.userService.getUserOwnedGames(userId);
   }
+
   goBack() {
     this.location.back();
+  }
+
+  addFriend(friendId:number) {
+    this.userService.addFriend(friendId).subscribe();
   }
 }

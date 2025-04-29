@@ -42,7 +42,7 @@ export class EventFormComponent implements OnInit {
       return data;
     }));;
     this.spotList$ = this.spotService.getSpots();
-    this.userFriendList$ = this.userService.getFriendList();
+    this.userFriendList$ = this.userService.getFriendList('');
   }
 
   ngOnInit(): void {
@@ -61,7 +61,6 @@ export class EventFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    debugger;
     if (this.eventForm.valid) {
       if(this.isEdit){
         this.eventService.updateEvent(this.eventId,this.eventForm.value).subscribe(() => {

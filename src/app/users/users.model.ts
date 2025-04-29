@@ -6,5 +6,5 @@ export interface User {
 
 export interface FriendUser{
   id:number;
-  name:string;
+  username:string;
 }

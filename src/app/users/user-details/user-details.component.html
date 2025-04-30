@@ -2,7 +2,8 @@
     <h2>{{ user?.username }}</h2>
     <div class="flex">
         <button mat-flat-button type="button" (click)="goBack()">Back</button>
-        <button mat-flat-button type="button" (click)="addFriend(user.id)">Add friend</button>
+        <button mat-flat-button *ngIf="!user.isFriend" type="button" (click)="addFriend(user.id)">Add friend</button>
+        <button mat-flat-button *ngIf="user.isFriend" type="button" (click)="removeFriend(user.id)">Remove friend</button>
         <!-- <button mat-flat-button type="button" (click)="goToUser(user.id)">Edit</button> -->
     </div>
 

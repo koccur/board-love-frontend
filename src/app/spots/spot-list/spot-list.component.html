@@ -1,7 +1,26 @@
 <h2>Spots</h2>
+<div class="flex">
+  <div>
+    <h2>My Spots</h2>
+    <input type="text" [(ngModel)]="mySpotsSearchText" placeholder="Search favourite spot" (input)="filterFavSpots()" />
+    <ul>
+      <li *ngFor="let spot of filteredFavSpots">
+        <a [routerLink]="['/spots', spot.id]">{{ spot.name }}</a>
+      </li>
+    </ul>
+  
+  </div>
+
+  <div>
+    <h2>All spots</h2>
+    <input type="text" [(ngModel)]="searchText" placeholder="Search spot" (input)="filterSpots()" />
+
 <ul>
-  <li *ngFor="let spot of spots">
+  <li *ngFor="let spot of filteredSpots">
     <a [routerLink]="['/spots', spot.id]">{{ spot.name }}</a>
   </li>
 </ul>
-<a routerLink="/spots/create">Create New Spot</a>
+<!-- todo hide without permission / or For all -->
+<!-- <a routerLink="/spots/create">Create New Spot</a> -->
+</div>
+</div>

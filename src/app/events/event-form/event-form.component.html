@@ -43,7 +43,7 @@
     <mat-form-field class="example-full-width" *ngIf="userFriendList.length">
       <mat-label>Participans:</mat-label>
       <mat-select [multiple]="true" [formControlName]="'participantsIds'">
-        <mat-option *ngFor="let friend of userFriendList" [value]="friend.id">{{friend.name}}</mat-option>
+        <mat-option *ngFor="let friend of userFriendList" [value]="friend.id">{{friend.username}}</mat-option>
       </mat-select>
     </mat-form-field>
   </ng-container>

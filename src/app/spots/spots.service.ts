@@ -9,11 +9,10 @@ import { Spot } from './spots.model';
   providedIn: 'root'
 })
 export class SpotService {
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
-
-  getSpots(): Observable<Spot[]> {
-    return this.http.get<Spot[]>(API_URL.SPOTS);
+  getSpots(spotName: string): Observable<Spot[]> {
+    return this.http.get<Spot[]>(`${API_URL.SPOTS}?name=${spotName}`);
   }
 
   getSpotById(id: number): Observable<Spot> {

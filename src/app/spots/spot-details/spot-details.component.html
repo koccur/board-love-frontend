@@ -1,4 +1,8 @@
 <h2>{{ spot?.name }}</h2>
 <p>Location: {{ spot?.location }}</p>
 <p>Description: {{ spot?.description }}</p>
+
+<!-- todo add remove and search filter -->
+<button mat-flat-button type="button" (click)="addTofavSpot(spot.id)">Add spot to favourite</button>
+
 <a routerLink="/spots">Back to Spots</a>

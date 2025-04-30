@@ -41,7 +41,7 @@ export class EventFormComponent implements OnInit {
       data[1]= data[1].filter(game=>data[0].some(gameFav=>gameFav.id !== game.id));
       return data;
     }));;
-    this.spotList$ = this.spotService.getSpots();
+    this.spotList$ = this.spotService.getSpots('');
     this.userFriendList$ = this.userService.getFriendList('');
   }
 
